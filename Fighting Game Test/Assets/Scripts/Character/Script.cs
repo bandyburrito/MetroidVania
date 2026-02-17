@@ -9,7 +9,7 @@ public class Script : MonoBehaviour
     
     // Private variable to store the horizontal input value (-1, 0, or 1)
     private float horizontalInput;
-    private float jumpForce = 7f;
+    [SerializeField] private float jumpForce = 70f;
     private Rigidbody2D rb;
     private bool isGrounded;
 
