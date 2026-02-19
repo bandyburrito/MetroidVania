@@ -16,7 +16,7 @@ public class ProjectileCollision : MonoBehaviour
     {
         
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -28,7 +28,7 @@ public class ProjectileCollision : MonoBehaviour
         {
             Debug.Log("Player hit by projectile!");
             projectileList.Remove(gameObject);
-            Destroy(gameObject);
+            
             
         }
     }

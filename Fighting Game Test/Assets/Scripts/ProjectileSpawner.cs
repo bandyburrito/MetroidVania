@@ -13,6 +13,7 @@ public class ProjectileSpawner : MonoBehaviour
 
     void Start()
     {
+       Physics2D.IgnoreLayerCollision(6, 7, true);
         SpawnerVertical();
         SpawnerHorizontal();
     }
@@ -31,6 +32,7 @@ public class ProjectileSpawner : MonoBehaviour
             GameObject projectile = new GameObject("VerticalProjectile_" + (i + 5));
             projectile.transform.position = new Vector3(i * projectileSpacing, 10, 0);
             projectile.transform.localScale = Vector3.one * projectileSize;
+            projectile.layer = 7; // Set to VerticalProjectiles layer
 
             SpriteRenderer sr = projectile.AddComponent<SpriteRenderer>();
             Texture2D texture = new Texture2D(1, 1);
@@ -38,8 +40,10 @@ public class ProjectileSpawner : MonoBehaviour
             texture.Apply();
             sr.sprite = Sprite.Create(texture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
             sr.color = Color.red;
+            
 
             BoxCollider2D boxCol = projectile.AddComponent<BoxCollider2D>();
+            boxCol.isTrigger = true; // Set to false for collision detection
 
             ProjectileCollision col = projectile.AddComponent<ProjectileCollision>();
 
@@ -59,20 +63,21 @@ public class ProjectileSpawner : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
+            
             GameObject projectile = new GameObject("HorizontalProjectile_" + i);
+
+            
             projectile.transform.position = new Vector3(14, i * projectileSpacing - 1.5f, 0);
             projectile.transform.localScale = Vector3.one * projectileSize;
-
+            projectile.layer = 6; // Set to HorizontalProjectiles layer
             SpriteRenderer sr = projectile.AddComponent<SpriteRenderer>();
             Texture2D texture = new Texture2D(1, 1);
             texture.SetPixel(0, 0, Color.white);
             texture.Apply();
             sr.sprite = Sprite.Create(texture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
             sr.color = Color.blue;
-
-            
-
-            
+            BoxCollider2D boxCol = projectile.AddComponent<BoxCollider2D>();
+            boxCol.isTrigger = true; // Set to false for collision detection
 
             Rigidbody2D rb = projectile.AddComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -99,7 +104,7 @@ public class ProjectileSpawner : MonoBehaviour
         for (int i = 0; i < horizontalProjectiles.Count; i++)
         {
             Rigidbody2D rb = horizontalProjectiles[i].GetComponent<Rigidbody2D>();
-            rb.linearVelocity = Vector2.left * projectileSpeed / 2; // Slower horizontal speed for variety
+            rb.linearVelocity = Vector2.left * projectileSpeed ; // Slower horizontal speed for variety
         }
     }
 }

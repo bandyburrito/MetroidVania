@@ -68,9 +68,9 @@ public class Script : MonoBehaviour
         transform.Translate(Vector3.right * moveAmount);
         
         // Optional: Debug log to see movement happening and track position
-        if (moveAmount != 0)
+        //if (moveAmount != 0)
         {
-            Debug.Log("MOVING: " + moveAmount + " units. Current position: " + transform.position);
+           // Debug.Log("MOVING: " + moveAmount + " units. Current position: " + transform.position);
         }
     }
 
